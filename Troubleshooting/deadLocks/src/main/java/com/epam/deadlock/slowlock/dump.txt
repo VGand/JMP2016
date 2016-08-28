@@ -1,0 +1,108 @@
+2016-08-28 22:06:25
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (25.45-b02 mixed mode):
+
+"DestroyJavaVM" #16 prio=5 os_prio=0 tid=0x00000000022ce800 nid=0x17b0 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"t5" #15 prio=5 os_prio=0 tid=0x0000000059281000 nid=0x1678 waiting for monitor entry [0x000000005a32f000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at com.epam.deadlock.slowlock.SlowSharedLock$5.run(SlowSharedLock.java:74)
+	- waiting to lock <0x00000000d61360a8> (a java.lang.String)
+
+"t4" #14 prio=5 os_prio=0 tid=0x0000000059280800 nid=0x1794 waiting for monitor entry [0x000000005a10f000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at com.epam.deadlock.slowlock.SlowSharedLock$4.run(SlowSharedLock.java:60)
+	- waiting to lock <0x00000000d61360a8> (a java.lang.String)
+
+"t3" #13 prio=5 os_prio=0 tid=0x000000005927b800 nid=0x10fc waiting for monitor entry [0x0000000059eaf000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at com.epam.deadlock.slowlock.SlowSharedLock$3.run(SlowSharedLock.java:46)
+	- waiting to lock <0x00000000d61360a8> (a java.lang.String)
+
+"t2" #12 prio=5 os_prio=0 tid=0x000000005927a000 nid=0xaac waiting for monitor entry [0x0000000059ffe000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at com.epam.deadlock.slowlock.SlowSharedLock$2.run(SlowSharedLock.java:32)
+	- waiting to lock <0x00000000d61360a8> (a java.lang.String)
+
+"t1" #11 prio=5 os_prio=0 tid=0x0000000059274000 nid=0x1648 waiting on condition [0x0000000059c7f000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at com.epam.deadlock.slowlock.SlowSharedLock$1.run(SlowSharedLock.java:16)
+	- locked <0x00000000d61360a8> (a java.lang.String)
+
+"Monitor Ctrl-Break" #10 daemon prio=5 os_prio=0 tid=0x0000000059262000 nid=0x1650 runnable [0x0000000059b5e000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+	at java.net.SocketInputStream.read(SocketInputStream.java:170)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:284)
+	at sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:326)
+	at sun.nio.cs.StreamDecoder.read(StreamDecoder.java:178)
+	- locked <0x00000000d61a0400> (a java.io.InputStreamReader)
+	at java.io.InputStreamReader.read(InputStreamReader.java:184)
+	at java.io.BufferedReader.fill(BufferedReader.java:161)
+	at java.io.BufferedReader.readLine(BufferedReader.java:324)
+	- locked <0x00000000d61a0400> (a java.io.InputStreamReader)
+	at java.io.BufferedReader.readLine(BufferedReader.java:389)
+	at com.intellij.rt.execution.application.AppMain$1.run(AppMain.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+
+"Service Thread" #9 daemon prio=9 os_prio=0 tid=0x00000000577bf000 nid=0xf00 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread2" #8 daemon prio=9 os_prio=2 tid=0x00000000577bd800 nid=0x1128 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread1" #7 daemon prio=9 os_prio=2 tid=0x00000000577bc000 nid=0xee8 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #6 daemon prio=9 os_prio=2 tid=0x00000000577b9800 nid=0xd70 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Attach Listener" #5 daemon prio=5 os_prio=2 tid=0x00000000577b6800 nid=0xe24 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" #4 daemon prio=9 os_prio=2 tid=0x00000000577b4000 nid=0x828 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" #3 daemon prio=8 os_prio=1 tid=0x0000000057757800 nid=0x15a4 in Object.wait() [0x0000000058a3f000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000000d5f06f58> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)
+	- locked <0x00000000d5f06f58> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:164)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:209)
+
+"Reference Handler" #2 daemon prio=10 os_prio=2 tid=0x0000000057750800 nid=0xce8 in Object.wait() [0x000000005887f000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000000d5f06998> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:157)
+	- locked <0x00000000d5f06998> (a java.lang.ref.Reference$Lock)
+
+"VM Thread" os_prio=2 tid=0x000000005774b000 nid=0x14c0 runnable
+
+"GC task thread#0 (ParallelGC)" os_prio=0 tid=0x00000000021fd000 nid=0x14f4 runnable
+
+"GC task thread#1 (ParallelGC)" os_prio=0 tid=0x00000000021fe800 nid=0x1518 runnable
+
+"GC task thread#2 (ParallelGC)" os_prio=0 tid=0x0000000002200000 nid=0xa74 runnable
+
+"GC task thread#3 (ParallelGC)" os_prio=0 tid=0x0000000002201800 nid=0x15fc runnable
+
+"VM Periodic Task Thread" os_prio=2 tid=0x00000000591b5000 nid=0x16a0 waiting on condition
+
+JNI global references: 26
+
+Heap
+ PSYoungGen      total 38400K, used 5325K [0x00000000d5f00000, 0x00000000d8980000, 0x0000000100000000)
+  eden space 33280K, 16% used [0x00000000d5f00000,0x00000000d64336a8,0x00000000d7f80000)
+  from space 5120K, 0% used [0x00000000d8480000,0x00000000d8480000,0x00000000d8980000)
+  to   space 5120K, 0% used [0x00000000d7f80000,0x00000000d7f80000,0x00000000d8480000)
+ ParOldGen       total 87552K, used 0K [0x0000000081c00000, 0x0000000087180000, 0x00000000d5f00000)
+  object space 87552K, 0% used [0x0000000081c00000,0x0000000081c00000,0x0000000087180000)
+ Metaspace       used 3176K, capacity 4568K, committed 4864K, reserved 1056768K
+  class space    used 354K, capacity 392K, committed 512K, reserved 1048576K
