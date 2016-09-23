@@ -2,6 +2,7 @@ package ru.av.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import ru.av.bean.User;
 import ru.av.repository.UserRepository;
 import ru.av.utils.UserFilterUtils;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -56,10 +58,14 @@ public class UserController{
     }
 
     @RequestMapping(path = "/edit/{id}", method = RequestMethod.POST)
-    public String updateUser(@PathVariable Long id, @ModelAttribute("user")User user) {
-        userRepositoryImpl.updateUser(user);
+    public String updateUser(@PathVariable Long id, @Valid @ModelAttribute("user")User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        } else {
+            userRepositoryImpl.updateUser(user);
 
-        return "forward:/user/" + user.getId();
+            return "forward:/user/" + user.getId();
+        }
     }
 
     @RequestMapping(path = "/edit", method = RequestMethod.GET)
@@ -71,10 +77,15 @@ public class UserController{
     }
 
     @RequestMapping(path = "/edit", method = RequestMethod.POST)
-    public String createUser(@ModelAttribute("user")User user) {
-        userRepositoryImpl.createUser(user);
+    public String createUser(@Valid @ModelAttribute("user")User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        } else {
 
-        return "forward:/user/" + user.getId();
+            userRepositoryImpl.createUser(user);
+
+            return "forward:/user/" + user.getId();
+        }
     }
 
     @RequestMapping(path = "/edit/{id}", method = RequestMethod.GET)

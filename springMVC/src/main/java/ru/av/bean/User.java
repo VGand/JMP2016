@@ -1,7 +1,10 @@
 package ru.av.bean;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -10,11 +13,22 @@ import java.util.Date;
 public class User {
 
     private Long id;
+
+    @NotEmpty
     private String firstName;
+
+    @NotEmpty
     private String lastName;
+
+    @Email
+    @NotEmpty
     private String email;
+
+    @NotEmpty
     private String login;
+
     @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @NotNull
     private Date birthDay;
 
     public Long getId() {
