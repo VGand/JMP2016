@@ -1,5 +1,7 @@
 package ru.av.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -12,6 +14,7 @@ public class User {
     private String lastName;
     private String email;
     private String login;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date birthDay;
 
     public Long getId() {

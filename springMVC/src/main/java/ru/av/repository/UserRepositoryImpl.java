@@ -3,10 +3,7 @@ package ru.av.repository;
 import org.springframework.stereotype.Repository;
 import ru.av.bean.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Полина on 22.09.2016.
@@ -19,6 +16,33 @@ public class UserRepositoryImpl implements UserRepository{
 
     public UserRepositoryImpl() {
         userMap = new HashMap<>();
+
+        User user = new User();
+        user.setId(userIdSequence++);
+        user.setEmail("a@b.com");
+        user.setFirstName("Ivan");
+        user.setLastName("Ivanov");
+        user.setLogin("ivan");
+        user.setBirthDay(new Date());
+        userMap.put(user.getId(), user);
+
+        user = new User();
+        user.setId(userIdSequence++);
+        user.setEmail("a@b.com");
+        user.setFirstName("Petr");
+        user.setLastName("Pertov");
+        user.setLogin("petr");
+        user.setBirthDay(new Date());
+        userMap.put(user.getId(), user);
+
+        user = new User();
+        user.setId(userIdSequence++);
+        user.setEmail("a@b.com");
+        user.setFirstName("Vasili");
+        user.setLastName("Vasiliev");
+        user.setLogin("vasili");
+        user.setBirthDay(new Date());
+        userMap.put(user.getId(), user);
     }
 
     public Long createUser(User user) {

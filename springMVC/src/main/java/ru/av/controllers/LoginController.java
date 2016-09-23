@@ -1,8 +1,8 @@
 package ru.av.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.av.bean.LoginBean;
 
 /**
@@ -11,14 +11,8 @@ import ru.av.bean.LoginBean;
 @Controller
 public class LoginController {
 
-    @RequestMapping("/")
+    @RequestMapping({"/", "/login"})
     public String greeting(@ModelAttribute("loginBean")LoginBean loginBean) {
-
-        return "login";
-    }
-
-    @RequestMapping("/login")
-    public String login(@ModelAttribute("loginBean")LoginBean loginBean) {
 
         return "login";
     }
