@@ -8,10 +8,23 @@
 </head>
 <body>
     <form:form id="loginForm" method="post" action="login" modelAttribute="loginBean">
-        <form:label path="username">Enter your user-name</form:label>
-        <form:input id="username" name="username" path="username" /><br>
-        <form:label path="username">Please enter your password</form:label>
-        <form:password id="password" name="password" path="password" /><br>
+        <table>
+            <tr>
+                <td><form:label path="username">Enter your user-name</form:label></td>
+                <td><form:input id="username" name="username" path="username" /><br></td>
+            </tr>
+            <tr>
+                <td><form:label path="username">Please enter your password</form:label></td>
+                <td><form:password id="password" name="password" path="password" /><br></td>
+            </tr>
+            <tr>
+                <div class=error-message>
+                    <c:if test="${not empty loginError}">
+                        <span>${loginError}</span>
+                    </c:if>
+                </div>
+            </tr>
+        </table>
         <input type="submit" value="Submit" />
     </form:form>
 </body>

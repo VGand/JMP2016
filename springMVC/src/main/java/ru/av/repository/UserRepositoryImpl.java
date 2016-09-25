@@ -1,7 +1,10 @@
 package ru.av.repository;
 
 import org.springframework.stereotype.Repository;
+import ru.av.bean.LoginBean;
+import ru.av.bean.Role;
 import ru.av.bean.User;
+import ru.av.bean.UserAuthorizationInfo;
 
 import java.util.*;
 
@@ -13,6 +16,8 @@ public class UserRepositoryImpl implements UserRepository{
 
     private Long userIdSequence = 0L;
     private Map<Long, User> userMap;
+
+    private Map<String, UserAuthorizationInfo> userAuthorizationInfoMap;
 
     public UserRepositoryImpl() {
         userMap = new HashMap<>();
@@ -43,6 +48,14 @@ public class UserRepositoryImpl implements UserRepository{
         user.setLogin("vasili");
         user.setBirthDay(new Date());
         userMap.put(user.getId(), user);
+
+        userAuthorizationInfoMap = new HashMap<>();
+
+        UserAuthorizationInfo userAuthorizationInfo = new UserAuthorizationInfo("admin", "password", Role.ADMIN);
+        userAuthorizationInfoMap.put(userAuthorizationInfo.getLogin(), userAuthorizationInfo);
+
+        userAuthorizationInfo = new UserAuthorizationInfo("client", "password", Role.USER);
+        userAuthorizationInfoMap.put(userAuthorizationInfo.getLogin(), userAuthorizationInfo);
     }
 
     public Long createUser(User user) {
@@ -67,6 +80,15 @@ public class UserRepositoryImpl implements UserRepository{
 
     public List<User> getAllUsers() {
         return new ArrayList<>(userMap.values());
+    }
+
+    @Override
+    public UserAuthorizationInfo checkUser(LoginBean loginBean) {
+        if (userAuthorizationInfoMap.containsKey(loginBean.getUsername())
+                && userAuthorizationInfoMap.get(loginBean.getUsername()).getPassword().equals(loginBean.getPassword())) {
+            return userAuthorizationInfoMap.get(loginBean.getUsername());
+        }
+        return null;
     }
 
 }

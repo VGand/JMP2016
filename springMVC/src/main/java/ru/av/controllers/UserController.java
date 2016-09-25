@@ -3,16 +3,18 @@ package ru.av.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ru.av.bean.AuthorizationInfo;
+import ru.av.bean.Role;
 import ru.av.bean.SearchBean;
 import ru.av.bean.User;
+import ru.av.exception.NoPermissionException;
 import ru.av.repository.UserRepository;
 import ru.av.utils.UserFilterUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -51,7 +53,8 @@ public class UserController{
     }
 
     @RequestMapping(path = "/delete/{id}")
-    public String deleteUser(@PathVariable Long id) {
+    public String deleteUser(@PathVariable Long id, HttpServletRequest request) throws NoPermissionException {
+        checkPermissionForChange(request);
         userRepositoryImpl.delete(id);
 
         return "redirect:/user/";
@@ -69,7 +72,8 @@ public class UserController{
     }
 
     @RequestMapping(path = "/edit", method = RequestMethod.GET)
-    public ModelAndView getCreateView() {
+    public ModelAndView getCreateView(HttpServletRequest request) throws NoPermissionException {
+        checkPermissionForChange(request);
         ModelAndView modelAndView = new ModelAndView("edit");
         modelAndView.addObject("user", new User());
 
@@ -89,12 +93,29 @@ public class UserController{
     }
 
     @RequestMapping(path = "/edit/{id}", method = RequestMethod.GET)
-    public ModelAndView getUpdateUserInfo(@PathVariable Long id) {
+    public ModelAndView getUpdateUserInfo(@PathVariable Long id, HttpServletRequest request) throws NoPermissionException {
+        checkPermissionForChange(request);
+
         User user = userRepositoryImpl.getUserById(id);
 
         ModelAndView modelAndView = new ModelAndView("edit");
         modelAndView.addObject("user", user);
 
         return modelAndView;
+    }
+
+    @ExceptionHandler(NoPermissionException.class)
+    public ModelAndView handleNoPermissionException() {
+        ModelAndView mav = new ModelAndView("error");
+        mav.addObject("errorMessage", "User has no permission for create and edit and delete");
+        return mav;
+    }
+
+    private void checkPermissionForChange(HttpServletRequest request) throws NoPermissionException {
+        AuthorizationInfo authorizationInfo = (AuthorizationInfo) request.getSession().getAttribute("authorizationInfo");
+        if (authorizationInfo == null || authorizationInfo.getUserAuthorizationInfo() == null
+                || authorizationInfo.getUserAuthorizationInfo().getUserRole() != Role.ADMIN) {
+            throw new NoPermissionException();
+        }
     }
 }

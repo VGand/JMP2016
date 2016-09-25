@@ -1,6 +1,8 @@
 package ru.av.repository;
 
+import ru.av.bean.LoginBean;
 import ru.av.bean.User;
+import ru.av.bean.UserAuthorizationInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,4 +20,6 @@ public interface UserRepository {
     User getUserById(Long id);
 
     List<User> getAllUsers();
+
+    UserAuthorizationInfo checkUser(LoginBean loginBean);
 }
