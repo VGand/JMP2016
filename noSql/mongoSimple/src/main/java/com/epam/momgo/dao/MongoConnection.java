@@ -12,7 +12,7 @@ public class MongoConnection {
     private MongoClient mongoClient;
 
     private MongoConnection() {
-        mongoClient = new MongoClient("localhost", 27004);
+        mongoClient = new MongoClient("localhost", 27017);
     }
 
     public static MongoConnection getInstance() {

@@ -3,6 +3,8 @@ package com.epam.momgo.beans;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Полина on 16.10.2016.
@@ -12,8 +14,8 @@ public class Transaction {
     private String currency;
     private LocalDateTime dateTime;
     private Integer recipientCode;
-    private Integer id;
-    private Category category;
+    private UUID uuid;
+    private List<String> categoryList;
 
     public Double getAmount() {
         return amount;
@@ -47,20 +49,20 @@ public class Transaction {
         this.recipientCode = recipientCode;
     }
 
-    public Integer getId() {
-        return id;
+    public UUID getUuid() {
+        return uuid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
-    public Category getCategory() {
-        return category;
+    public List<String> getCategoryList() {
+        return categoryList;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryList(List<String> categoryList) {
+        this.categoryList = categoryList;
     }
 
     @Override
@@ -68,9 +70,10 @@ public class Transaction {
         return "Transaction{" +
                 "amount=" + amount +
                 ", currency='" + currency + '\'' +
+                ", dateTime=" + dateTime +
                 ", recipientCode=" + recipientCode +
-                ", id=" + id +
-                ", category=" + category +
+                ", id=" + uuid +
+                ", categoryList=" + categoryList +
                 '}';
     }
 }

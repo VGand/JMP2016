@@ -1,10 +1,10 @@
 package com.epam.momgo.dao;
 
-import com.epam.momgo.beans.Category;
 import com.epam.momgo.beans.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Полина on 16.10.2016.
@@ -15,7 +15,7 @@ public interface TransactionDao {
 
     void updateTransaction(Transaction transaction);
 
-    Transaction getTransactionById(Integer id);
+    Transaction getTransactionById(UUID id);
 
     List<Transaction> getTransactions();
 
@@ -23,5 +23,5 @@ public interface TransactionDao {
 
     List<Transaction> getTransactionsByCurrency(String currency);
 
-    List<Transaction> getTransactionsByCategory(Category category);
+    List<Transaction> getTransactionsByCategory(String categoryName);
 }
